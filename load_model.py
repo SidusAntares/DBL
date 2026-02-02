@@ -1,4 +1,4 @@
-from Model import DBL,convlstm
+from model import DBL,convlstm
 def get_model(config, mode="semantic"):
     if mode == "semantic":
 

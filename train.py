@@ -21,6 +21,9 @@ from Function.miou import IoU
 from Function import utils
 from Function.weight_init import weight_init
 import load_model
+
+from dataset import PixelSetData, create_evaluation_loaders, create_train_loader
+
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "--model",
@@ -55,7 +58,7 @@ parser.add_argument(
     help="Path to the folder where the results should be stored",
 )
 parser.add_argument(
-    "--num_workers", default=8, type=int, help="Number of workers"
+    "--num_workers", default=1, type=int, help="Number of workers"
 )
 parser.add_argument("--rdm_seed", default=1, type=int, help="Random seed")
 parser.add_argument(
@@ -225,13 +228,13 @@ def main(config):
     prepare_output(config)
     device = torch.device(config.device)
     if config.model == "JM":
-        dt_train = CFDataset(data_dir='JINGMEN/Jingmen_Data/Jingmen_Train',
-                         label_dir='JINGMEN/Jingmen_Label/Label_Train',
+        dt_train = CFDataset(data_dir='/mnt/d/All_Documents/documents/JMDataset/JMDataset/Jingmen_data/Jingmen_Train',
+                         label_dir='/mnt/d/All_Documents/documents/JMDataset/JMDataset/Jingmen_label/Label_Train',
                          norm=True) #dir to the JM train set
-        dt_val = CFDataset(data_dir='JINGMEN/Jingmen_Data/Jingmen_Val',
-                       label_dir='JINGMEN/Jingmen_Label/Label_Val', norm=True) #dir to the JM val set
-        dt_test = CFDataset(data_dir='JINGMEN/Jingmen_Data/Jingmen_Test',
-                        label_dir='JINGMEN/Jingmen_Label/Label_Test', norm=True) #dir to the JM test set
+        dt_val = CFDataset(data_dir='/mnt/d/All_Documents/documents/JMDataset/JMDataset/Jingmen_data/Jingmen_Val',
+                       label_dir='/mnt/d/All_Documents/documents/JMDataset/JMDataset/Jingmen_label/Label_Val', norm=True) #dir to the JM val set
+        dt_test = CFDataset(data_dir='/mnt/d/All_Documents/documents/JMDataset/JMDataset/Jingmen_data/Jingmen_Test',
+                        label_dir='/mnt/d/All_Documents/documents/JMDataset/JMDataset/Jingmen_label/Label_Test', norm=True) #dir to the JM test set
     elif config.model == "CF":
         dt_train = CFDataset(data_dir='CFDATA/mydata/CF_Train',
                           label_dir='CFlabel/mylabel/Label_Train',
