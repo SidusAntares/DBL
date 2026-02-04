@@ -169,9 +169,6 @@ def iterate(
     for i, batch in enumerate(data_loader):
         if device is not None:
             batch = recursive_todevice(batch, device)
-        print("Batch type:", type(batch))
-        print("Batch length:", len(batch) if isinstance(batch, (tuple, list)) else None)
-        print("Batch content:", batch)
         if config.model == "timematch":
             x = batch['pixels']  # 输入数据
             y = batch['label']  # 标签
