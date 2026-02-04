@@ -172,7 +172,11 @@ def iterate(
         print("Batch type:", type(batch))
         print("Batch length:", len(batch) if isinstance(batch, (tuple, list)) else None)
         print("Batch content:", batch)
-        x,  y = batch
+        if config.model == "timematch":
+            x = batch['pixels']  # 输入数据
+            y = batch['label']  # 标签
+        else:
+            x,  y = batch
         x = x.float()
         y = y.long()
 
