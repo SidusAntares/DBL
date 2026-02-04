@@ -39,13 +39,25 @@ from transforms import (
     RandomSampleTimeSteps,
     ToTensor,
 )
-
+from utils.train_utils import bool_flag
 
 parser = argparse.ArgumentParser()
 
+parser.add_argument(
+    "--model",
+    default="timematch",
+    type=str,
+    help="Which dataset to use. Can be one of: (JM/CF/PAS_SS)",
+)
+
+# timematch
+parser.add_argument("--balance_source", type=bool_flag, default=True, help='class balanced batches for source')
+parser.add_argument('--num_pixels', default=64, type=int, help='Number of pixels to sample from the input sample')
+parser.add_argument('--seq_length', default=30, type=int, help='Number of time steps to sample from the input sample')
+
 
 # 数据路径与域
-parser.add_argument('--data_root', default='/mnt/d/All_Documents/documents/ViT/dataset/timematcha', type=str,
+parser.add_argument('--data_root', default='/data/user/DBL/timematch_data', type=str,
                     help='Path to datasets root directory')
 parser.add_argument('--source', default='denmark/32VNH/2017', type=str)
 parser.add_argument('--target', default='france/30TXT/2017', type=str)
@@ -91,7 +103,7 @@ parser.add_argument(
 parser.add_argument(
     "--num_workers", default=1, type=int, help="Number of workers"
 )
-parser.add_argument("--rdm_seed", default=1, type=int, help="Random seed")
+parser.add_argument("--seed", default=1, type=int, help="Random seed")
 parser.add_argument(
     "--device",
     default="cuda",
@@ -157,6 +169,9 @@ def iterate(
     for i, batch in enumerate(data_loader):
         if device is not None:
             batch = recursive_todevice(batch, device)
+        print("Batch type:", type(batch))
+        print("Batch length:", len(batch) if isinstance(batch, (tuple, list)) else None)
+        print("Batch content:", batch)
         x,  y = batch
         x = x.float()
         y = y.long()

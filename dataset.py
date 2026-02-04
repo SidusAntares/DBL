@@ -18,7 +18,7 @@ from transforms import (
     RandomSampleTimeSteps,
     ToTensor,
 )
-import label_utils
+from utils import label_utils
 
 
 class PixelSetData(data.Dataset):
