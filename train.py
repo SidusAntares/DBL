@@ -52,7 +52,7 @@ parser.add_argument(
 
 # timematch
 parser.add_argument("--balance_source", type=bool_flag, default=True, help='class balanced batches for source')
-parser.add_argument('--num_pixels', default=64, type=int, help='Number of pixels to sample from the input sample')
+parser.add_argument('--num_pixels', default=16384, type=int, help='Number of pixels to sample from the input sample')
 parser.add_argument('--seq_length', default=30, type=int, help='Number of time steps to sample from the input sample')
 
 

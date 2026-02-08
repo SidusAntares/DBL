@@ -68,7 +68,8 @@ class PixelSetData(data.Dataset):
     def __getitem__(self, index):
         path, parcel_idx, y, extra = self.samples[index]
         pixels = zarr.load(path)  # (T, C, S)
-
+        N = pixels.shape[-1]
+        pixel_labels = torch.full((N,), y, dtype=torch.long)
         sample = {
             "index": index,
             "parcel_index": parcel_idx,  # mapping to metadata
@@ -77,7 +78,7 @@ class PixelSetData(data.Dataset):
                 (pixels.shape[0], pixels.shape[-1]), dtype=np.float32),
             "positions": np.array(self.date_positions),
             "extra": np.array(extra),
-            "label": y,
+            "label": pixel_labels,
         }
 
         if self.transform is not None:

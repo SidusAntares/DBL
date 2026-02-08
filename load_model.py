@@ -35,7 +35,7 @@ def get_model(config, mode="semantic"):
                 num_classes=config.num_classes,
                 inconv=[32, 64],
                 hidden_size=88,
-                input_shape=(8, 8),
+                input_shape=(128,128),
                 mid_conv=True,
                 pad_value=config.pad_value,
             )
