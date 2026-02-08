@@ -31,7 +31,7 @@ def get_model(config, mode="semantic"):
 
         elif config.model == "timematch":
             model = DBL.DBL(
-                input_dim=30,
+                input_dim=10,
                 num_classes=config.num_classes,
                 inconv=[32, 64],
                 hidden_size=88,

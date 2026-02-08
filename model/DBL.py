@@ -43,7 +43,7 @@ class DBL(nn.Module):
             nkernels=[input_dim] + inconv, norm="group", pad_value=pad_value
         )
         self.aspp = ASPP(4*self.width, [6, 12, 18])
-        self.TA = TemporalAttention(12, ratio=4)
+        self.TA = TemporalAttention(30, ratio=4) # 12 似乎是T
         self.ca1 = ChannelAttention(64)
         self.sa1 = SpatialAttention()
         if mid_conv:

@@ -40,7 +40,7 @@ from transforms import (
     ToTensor,
 )
 from utils.train_utils import bool_flag
-
+import math
 parser = argparse.ArgumentParser()
 
 parser.add_argument(
@@ -176,7 +176,6 @@ def iterate(
             x,  y = batch
         x = x.float()
         y = y.long()
-
         if mode != "train":
             with torch.no_grad():
                 out = model(x)
