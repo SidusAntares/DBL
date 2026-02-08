@@ -172,10 +172,16 @@ def iterate(
         if config.model == "timematch":
             x = batch['pixels']  # 输入数据
             y = batch['label']  # 标签
+            b,t,c,hw = x.shape
+            h = math.sqrt(hw)
+            assert h.is_integer()
+            h = int(h)
+            x = x.reshape(b, t, c,h,h)
         else:
             x,  y = batch
         x = x.float()
         y = y.long()
+
         if mode != "train":
             with torch.no_grad():
                 out = model(x)

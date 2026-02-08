@@ -207,8 +207,8 @@ def create_evaluation_loaders(dataset_name, splits, config, sample_pixels_val=Fa
     # Validation dataset
     val_transform = transforms.Compose(
         [
-            RandomSamplePixels(config.num_pixels) if sample_pixels_val else Identity(),
-            RandomSampleTimeSteps(config.seq_length) if is_tsnet else Identity(),
+            RandomSamplePixels(config.num_pixels) ,
+            RandomSampleTimeSteps(config.seq_length) ,
             Normalize(),
             ToTensor(),
         ]
@@ -231,7 +231,8 @@ def create_evaluation_loaders(dataset_name, splits, config, sample_pixels_val=Fa
     # Test dataset
     test_transform = transforms.Compose(
         [
-            RandomSampleTimeSteps(config.seq_length) if is_tsnet else Identity(),
+            RandomSamplePixels(config.num_pixels),
+            RandomSampleTimeSteps(config.seq_length) ,
             Normalize(),
             ToTensor(),
         ]
